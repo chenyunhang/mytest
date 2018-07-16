@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cyh.wyf.dao.batis.BookMapper">
+
+
+<resultMap id="BookMap" type="TBook">		
+		<result property="isbn" column="isbn" />
+		<result property="pic" column="pic" jdbcType="BLOB"/>
+	</resultMap>
+
+	<select id="getAllBooks" resultType="TBook">
+		select isbn,bname,press,price,pdate from tbook order by isbn
+	</select>
+
+	<select id="getBookPic" resultMap="BookMap">
+		select isbn,pic from tbook where isbn = #{isbn}
+	</select>
+	
+	<select id="getBookDetail" resultType="TBook">
+		select isbn,bname,press,price,pdate,outline from tbook where isbn=#{0}
+	</select>
+	
+	<select id="getCarBooks"  resultType="TBook">
+		select isbn,bname,press,price,pdate from tbook where isbn in 
+		<foreach item="isbn" index="index" collection="isbns" open="(" separator="," close=")">
+			#{isbn}
+		</foreach>
+	</select>
+	
+	<insert id="updateBookCount">
+		update tbook set bkcount=bkcount+#{1} where isbn=#{0}
+	</insert>
+	
+	<insert id="addBook" parameterType="java.util.HashMap">
+	     insert into tbook 
+	     <trim prefix="(" suffix=")" suffixOverrides=",">
+	    	 <if test="isbn != null and isbn != ''">
+   			 isbn,
+   			 </if>
+   			 <if test="bname != null and bname != ''">
+   			  bname,
+   			 </if>
+   			 <if test="press != null and press != ''">
+   			  press,
+   			 </if>
+   			 <if test="pdate != null and pdate != ''">  
+   			  pdate,
+   			 </if> 
+   			  <if test="price != null and price != ''"> 
+   			  price, 
+   			 </if>
+   			  <if test="bkcount != null and bkcount != ''">
+   			  bkcount,
+   			 </if> 
+   			 <if test="outline != null and outline != ''">
+   			  outline
+   			</if>
+   			</trim>
+ 		 values
+ 		 <trim prefix="(" suffix=")" suffixOverrides=",">
+    		<if test="isbn != null and isbn != ''">
+				#{isbn},
+			</if>
+    		<if test="bname != null and bname != ''">
+				#{bname},
+			</if>
+    		<if test="press != null and press != ''">
+				#{press},
+			</if>
+    		<if test="pdate != null and pdate != ''">
+				to_date ( #{pdate}, 'YYYY/MM/DD' ),
+			</if>
+    		<if test="price != null and price != ''">
+				#{price},
+			</if>
+    		<if test="bkcount != null and bkcount != ''">
+				#{bkcount},
+			</if>
+    		<if test="outline != null and outline != ''">
+				#{outline}
+			</if>
+			</trim>
+	</insert>
+
+
+</mapper>

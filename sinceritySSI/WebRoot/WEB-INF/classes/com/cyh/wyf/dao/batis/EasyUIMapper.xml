@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cyh.wyf.dao.batis.EasyUIMapper">
+
+	 <select id="getAllUser"  resultType="TUser">
+ select t.id,t.uname,t.pwd,t.account,t.role,t.sex,t.birth,t.province,t.city,t.area,t.email from tuser t
+    </select>
+    
+    
+	 <select id="editUser"  resultType="java.util.Map" parameterType="Map">
+			 update tuser t 
+			 set 
+			    t.uname =#{uname},
+                t.pwd = #{pwd},
+                t.account = #{account},
+                t.role = #{role},
+                t.sex = #{sex},
+                t.birth = to_date(#{birth},'yyyy-mm-dd'),
+                t.province = #{province},
+                t.city = #{city},
+                t.area = #{area},
+                t.email = #{email}                     
+                where id = #{id}
+    </select>
+    
+    
+     <select id="delUser"  resultType="java.util.Map" parameterType="Map">
+			
+		delete from tuser t  where t.id = #{id}
+    </select> 
+
+</mapper>

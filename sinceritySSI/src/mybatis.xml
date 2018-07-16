@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+       "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<settings> 
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+
+	<typeAliases>
+		<typeAlias alias="TBook" type="com.cyh.wyf.entity.TBook" />
+		<typeAlias alias="TBuyDetail" type="com.cyh.wyf.entity.TBuyDetail" />
+		<typeAlias alias="TUser" type="com.cyh.wyf.entity.TUser" />
+		<typeAlias alias="TBuyRecord" type="com.cyh.wyf.entity.TBuyRecord" />
+		<typeAlias alias="BuyRecord" type="com.cyh.wyf.dto.BuyRecord" />
+		<typeAlias alias="TProvince" type="com.cyh.wyf.entity.TProvince" />
+		<typeAlias alias="TCity" type="com.cyh.wyf.entity.TCity" />
+		<typeAlias alias="TArea" type="com.cyh.wyf.entity.TArea" />
+	</typeAliases>
+					
+
+	
+	
+	<mappers>
+		<mapper resource="com/cyh/wyf/dao/batis/BookMapper.xml" />
+		<mapper resource="com/cyh/wyf/dao/batis/UserMapper.xml" />
+		<mapper resource="com/cyh/wyf/dao/batis/XzqhMapper.xml" />
+		<mapper resource="com/cyh/wyf/dao/batis/EasyUIMapper.xml" />
+	</mappers>
+</configuration>
